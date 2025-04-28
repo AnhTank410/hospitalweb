@@ -8,4 +8,10 @@ public interface AppointmentService {
     AppointmentDTO getAppointmentById(int id);
     List<AppointmentDTO> getAppointmentsByDoctorId(int doctorId);
     List<AppointmentDTO> getAppointmentsByPatientId(int patientId);
+
+    AppointmentDTO createAppointment(AppointmentDTO appointmentDTO);
+
+    AppointmentDTO updateAppointment(int id, AppointmentDTO appointmentDTO);
+
+    boolean deleteAppointment(int id);
 }

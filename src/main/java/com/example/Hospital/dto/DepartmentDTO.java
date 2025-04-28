@@ -10,5 +10,22 @@ import java.util.List;
 public class DepartmentDTO {
     private int departmentID;
     private String Name;
-    private List<Integer> doctorIds;
+
+    public int getDepartmentID() {
+        return departmentID;
+    }
+
+    public void setDepartmentID(int departmentID) {
+        this.departmentID = departmentID;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+
 }

@@ -1,11 +1,12 @@
 package com.example.Hospital.dto;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
 
-
+@Data
 public class AppointmentDTO {
     private int appointmentID;
     private Date date;
