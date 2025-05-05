@@ -39,7 +39,7 @@ public class AppointmentController {
     public ResponseEntity<List<AppointmentDTO>> getByDoctor(@PathVariable int doctorId) {
         List<AppointmentDTO> appointments = appointmentService.getAppointmentsByDoctorId(doctorId);
         if (appointments.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);  // Trả về 204 nếu không có dữ liệu
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
@@ -58,7 +58,7 @@ public class AppointmentController {
     @PostMapping
     public ResponseEntity<AppointmentDTO> createAppointment(@RequestBody AppointmentDTO appointmentDTO) {
         AppointmentDTO newAppointment = appointmentService.createAppointment(appointmentDTO);
-        System.out.println(newAppointment);
+        //System.out.println(newAppointment);
         return new ResponseEntity<>(newAppointment, HttpStatus.CREATED);
     }
 
@@ -69,10 +69,10 @@ public class AppointmentController {
         if (updatedAppointment != null) {
             return new ResponseEntity<>(updatedAppointment, HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);  // Nếu không tìm thấy cuộc hẹn
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    // Xóa cuộc hẹn (Delete)
+
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteAppointment(@PathVariable int id) {
         boolean isDeleted = appointmentService.deleteAppointment(id);
