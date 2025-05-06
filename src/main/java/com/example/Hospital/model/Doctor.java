@@ -8,12 +8,7 @@ import java.util.List;
 
 @Entity(name="doctor")
 
-public class Doctor {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="doctor_id")
-    private int doctorID;
-
+public class Doctor extends User{
     private String name;
     private String gender;
     private String phone;
@@ -28,13 +23,6 @@ public class Doctor {
     @OneToMany(mappedBy = "doctor")
     private List<MedicalRecord> medicalrecords;
 
-    public int getDoctorID() {
-        return doctorID;
-    }
-
-    public void setDoctorID(int doctorID) {
-        this.doctorID = doctorID;
-    }
 
     public String getName() {
         return name;

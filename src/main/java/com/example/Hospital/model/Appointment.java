@@ -15,7 +15,7 @@ public class Appointment {
     @Column(name = "appointment_id")
     private int appointmentID;
 
-    @Column(name = "appointment_data")
+    @Column(name = "appointment_date")
     private Date date;
     private String reason;
     private String status;

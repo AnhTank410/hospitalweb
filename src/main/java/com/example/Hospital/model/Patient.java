@@ -10,12 +10,7 @@ import java.util.List;
 
 @Entity(name="patient")
 
-public class Patient {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "patient_id")
-    private int patientID;
-
+public class Patient extends User {
     private String name;
     private String gender;
     private Date dob;
@@ -30,13 +25,6 @@ public class Patient {
     @OneToMany(mappedBy = "patient")
     private List<Invoice> invoices;
 
-    public int getPatientID() {
-        return patientID;
-    }
-
-    public void setPatientID(int patientID) {
-        this.patientID = patientID;
-    }
 
     public String getName() {
         return name;

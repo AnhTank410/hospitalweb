@@ -40,13 +40,13 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public List<AppointmentDTO> getAppointmentsByDoctorId(int doctorId) {
-        List<Appointment> appointments = appointmentRepository.findByDoctor_DoctorID(doctorId);
+        List<Appointment> appointments = appointmentRepository.findByDoctor_Id(doctorId);
         return appointments.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
     public List<AppointmentDTO> getAppointmentsByPatientId(int patientId) {
-        List<Appointment> appointments = appointmentRepository.findByPatient_PatientID(patientId);
+        List<Appointment> appointments = appointmentRepository.findByPatient_Id(patientId);
         return appointments.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 

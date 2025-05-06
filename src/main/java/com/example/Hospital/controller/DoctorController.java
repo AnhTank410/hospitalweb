@@ -24,7 +24,7 @@ public class DoctorController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    @GetMapping("/{id}")
+    @GetMapping("/department/{id}")
     public ResponseEntity<List<DoctorDTO>> getDoctorByDepartment(@PathVariable int id){
         List<DoctorDTO> doctorDTOList=doctorService.getDoctorbyDepartment(id);
         if(doctorDTOList.isEmpty()){

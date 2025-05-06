@@ -38,7 +38,7 @@ public class DoctorServiceImpl implements DoctorSevice {
     @Override
     public DoctorDTO createDoctor(DoctorDTO doctorDTO) {
         Doctor doctor=new Doctor();
-        doctor.setDoctorID(doctorDTO.getDoctorID());
+        doctor.setId(doctorDTO.getDoctorID());
         doctor.setName(doctorDTO.getName());
         doctor.setDepartment(departmentRepository.findByName(doctorDTO.getDepartment()));
         doctor.setGender(doctorDTO.getGender());
@@ -54,7 +54,7 @@ public class DoctorServiceImpl implements DoctorSevice {
         Optional<Doctor> optionalDoctor=doctorRepository.findById(id);
         if(optionalDoctor.isPresent()){
             Doctor doctor=optionalDoctor.get();
-            doctor.setDoctorID(doctorDTO.getDoctorID());
+            doctor.setId(doctorDTO.getDoctorID());
             doctor.setName(doctorDTO.getName());
             doctor.setDepartment(departmentRepository.findByName(doctorDTO.getDepartment()));
             doctor.setGender(doctorDTO.getGender());
@@ -77,7 +77,7 @@ public class DoctorServiceImpl implements DoctorSevice {
 
     private DoctorDTO convertToDTO(Doctor doctor){
         DoctorDTO doctorDTO=new DoctorDTO();
-        doctorDTO.setDoctorID(doctor.getDoctorID());
+        doctorDTO.setDoctorID(doctor.getId());
         doctorDTO.setName(doctor.getName());
         doctorDTO.setGender(doctorDTO.getGender());
         doctorDTO.setSpecialization(doctorDTO.getSpecialization());
