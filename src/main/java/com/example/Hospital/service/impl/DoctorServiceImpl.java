@@ -2,6 +2,7 @@ package com.example.Hospital.service.impl;
 
 import com.example.Hospital.dto.DoctorDTO;
 import com.example.Hospital.model.Doctor;
+import com.example.Hospital.model.Role;
 import com.example.Hospital.repository.DepartmentRepository;
 import com.example.Hospital.repository.DoctorRepository;
 import com.example.Hospital.service.DoctorSevice;
@@ -38,12 +39,15 @@ public class DoctorServiceImpl implements DoctorSevice {
     @Override
     public DoctorDTO createDoctor(DoctorDTO doctorDTO) {
         Doctor doctor=new Doctor();
+        doctor.setUsename(doctorDTO.getUsename());
+        doctor.setPassword(doctorDTO.getPassword());
         doctor.setId(doctorDTO.getDoctorID());
         doctor.setName(doctorDTO.getName());
         doctor.setDepartment(departmentRepository.findByName(doctorDTO.getDepartment()));
         doctor.setGender(doctorDTO.getGender());
         doctor.setSpecialization(doctorDTO.getSpecialization());
         doctor.setPhone(doctorDTO.getPhone());
+        doctor.setRole(Role.DOCTOR);
 
         Doctor saveDoctor=doctorRepository.save(doctor);
         return convertToDTO(saveDoctor);
@@ -77,12 +81,15 @@ public class DoctorServiceImpl implements DoctorSevice {
 
     private DoctorDTO convertToDTO(Doctor doctor){
         DoctorDTO doctorDTO=new DoctorDTO();
+        doctorDTO.setUsename(doctor.getUsename());
+        doctorDTO.setPassword(doctor.getPassword());
         doctorDTO.setDoctorID(doctor.getId());
         doctorDTO.setName(doctor.getName());
-        doctorDTO.setGender(doctorDTO.getGender());
-        doctorDTO.setSpecialization(doctorDTO.getSpecialization());
+        doctorDTO.setGender(doctor.getGender());
+        doctorDTO.setSpecialization(doctor.getSpecialization());
         doctorDTO.setPhone(doctor.getPhone());
         doctorDTO.setDepartment(doctor.getDepartment()!=null ? doctor.getDepartment().getName(): null);
+        doctorDTO.setRole(doctor.getRole());
         return doctorDTO;
 
     }

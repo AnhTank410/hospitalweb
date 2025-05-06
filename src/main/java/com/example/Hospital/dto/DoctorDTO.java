@@ -1,12 +1,18 @@
 package com.example.Hospital.dto;
 
+import com.example.Hospital.model.Role;
+
 public class DoctorDTO {
     private int DoctorID;
+    private String usename;
+    private String password;
     private String name;
     private String gender;
     private String phone;
     private String specialization;
     private String Department;
+
+    private Role role;
 
     public int getDoctorID() {
         return DoctorID;
@@ -54,5 +60,29 @@ public class DoctorDTO {
 
     public void setDepartment(String department) {
         Department = department;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public String getUsename() {
+        return usename;
+    }
+
+    public void setUsename(String usename) {
+        this.usename = usename;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
