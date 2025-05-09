@@ -1,6 +1,6 @@
 package com.example.Hospital.controller;
 
-import com.example.Hospital.dto.AppointmentDTO;
+import com.example.Hospital.dto.request.AppointmentRequest;
 import com.example.Hospital.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,14 +20,14 @@ public class AppointmentController {
     // Lấy tất cả các cuộc hẹn
     @GetMapping
     public ResponseEntity<?> getAllAppointments() {
-        List<AppointmentDTO> appointments = appointmentService.getAllAppointments();
+        List<AppointmentRequest> appointments = appointmentService.getAllAppointments();
         return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
 
     // Lấy cuộc hẹn theo ID
     @GetMapping("/{id}")
-    public ResponseEntity<AppointmentDTO> getAppointmentById(@PathVariable int id) {
-        AppointmentDTO appointment = appointmentService.getAppointmentById(id);
+    public ResponseEntity<AppointmentRequest> getAppointmentById(@PathVariable int id) {
+        AppointmentRequest appointment = appointmentService.getAppointmentById(id);
         if (appointment != null) {
             return new ResponseEntity<>(appointment, HttpStatus.OK);
         }
@@ -36,8 +36,8 @@ public class AppointmentController {
 
     // Lấy cuộc hẹn theo ID bác sĩ
     @GetMapping("/doctor/{doctorId}")
-    public ResponseEntity<List<AppointmentDTO>> getByDoctor(@PathVariable int doctorId) {
-        List<AppointmentDTO> appointments = appointmentService.getAppointmentsByDoctorId(doctorId);
+    public ResponseEntity<List<AppointmentRequest>> getByDoctor(@PathVariable int doctorId) {
+        List<AppointmentRequest> appointments = appointmentService.getAppointmentsByDoctorId(doctorId);
         if (appointments.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -46,8 +46,8 @@ public class AppointmentController {
 
     // Lấy cuộc hẹn theo ID bệnh nhân
     @GetMapping("/patient/{patientId}")
-    public ResponseEntity<List<AppointmentDTO>> getByPatient(@PathVariable int patientId) {
-        List<AppointmentDTO> appointments = appointmentService.getAppointmentsByPatientId(patientId);
+    public ResponseEntity<List<AppointmentRequest>> getByPatient(@PathVariable int patientId) {
+        List<AppointmentRequest> appointments = appointmentService.getAppointmentsByPatientId(patientId);
         if (appointments.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -56,16 +56,16 @@ public class AppointmentController {
 
     // Tạo mới cuộc hẹn (Create)
     @PostMapping
-    public ResponseEntity<AppointmentDTO> createAppointment(@RequestBody AppointmentDTO appointmentDTO) {
-        AppointmentDTO newAppointment = appointmentService.createAppointment(appointmentDTO);
+    public ResponseEntity<AppointmentRequest> createAppointment(@RequestBody AppointmentRequest appointmentRequest) {
+        AppointmentRequest newAppointment = appointmentService.createAppointment(appointmentRequest);
         //System.out.println(newAppointment);
         return new ResponseEntity<>(newAppointment, HttpStatus.CREATED);
     }
 
     // Cập nhật cuộc hẹn (Update)
     @PutMapping("/{id}")
-    public ResponseEntity<AppointmentDTO> updateAppointment(@PathVariable int id, @RequestBody AppointmentDTO appointmentDTO) {
-        AppointmentDTO updatedAppointment = appointmentService.updateAppointment(id, appointmentDTO);
+    public ResponseEntity<AppointmentRequest> updateAppointment(@PathVariable int id, @RequestBody AppointmentRequest appointmentRequest) {
+        AppointmentRequest updatedAppointment = appointmentService.updateAppointment(id, appointmentRequest);
         if (updatedAppointment != null) {
             return new ResponseEntity<>(updatedAppointment, HttpStatus.OK);
         }

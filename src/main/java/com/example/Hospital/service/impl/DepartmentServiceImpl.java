@@ -1,6 +1,6 @@
 package com.example.Hospital.service.impl;
 
-import com.example.Hospital.dto.DepartmentDTO;
+import com.example.Hospital.dto.request.DepartmentRequest;
 import com.example.Hospital.model.Department;
 import com.example.Hospital.repository.DepartmentRepository;
 import com.example.Hospital.service.DepartmentService;
@@ -18,33 +18,33 @@ public class DepartmentServiceImpl implements DepartmentService {
     private DepartmentRepository departmentRepository;
 
     @Override
-    public List<DepartmentDTO> getAllDepartments(){
+    public List<DepartmentRequest> getAllDepartments(){
         List<Department> departmentList= departmentRepository.findAll();
         return departmentList.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
-    public DepartmentDTO createDepartment(DepartmentDTO departmentDTO) {
+    public DepartmentRequest createDepartment(DepartmentRequest departmentRequest) {
         Department department=new Department();
-        department.setDepartmentID(departmentDTO.getDepartmentID());
-        department.setName(departmentDTO.getName());
+        department.setDepartmentID(departmentRequest.getDepartmentID());
+        department.setName(departmentRequest.getName());
 
         Department saveDepartment= departmentRepository.save(department);
         return  convertToDTO(saveDepartment);
     }
 
     @Override
-    public DepartmentDTO getDepartmentById(int id) {
+    public DepartmentRequest getDepartmentById(int id) {
         Department department=departmentRepository.findById(id).orElse(null);
         return department!=null ? convertToDTO(department): null;
     }
 
     @Override
-    public DepartmentDTO updateDepartment(int id, DepartmentDTO departmentDTO) {
+    public DepartmentRequest updateDepartment(int id, DepartmentRequest departmentRequest) {
         Optional<Department> optionalDepartment=departmentRepository.findById(id);
         if(optionalDepartment.isPresent()){
             Department department=optionalDepartment.get();
-            department.setName(departmentDTO.getName());
+            department.setName(departmentRequest.getName());
 
             Department saveDepartment=departmentRepository.save(department);
             return convertToDTO(department);
@@ -62,10 +62,10 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
 
-    private DepartmentDTO convertToDTO(Department department){
-        DepartmentDTO departmentDTO=new DepartmentDTO();
-        departmentDTO.setDepartmentID(department.getDepartmentID());
-        departmentDTO.setName(department.getName());
-        return departmentDTO;
+    private DepartmentRequest convertToDTO(Department department){
+        DepartmentRequest departmentRequest =new DepartmentRequest();
+        departmentRequest.setDepartmentID(department.getDepartmentID());
+        departmentRequest.setName(department.getName());
+        return departmentRequest;
     }
 }

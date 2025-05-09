@@ -1,16 +1,16 @@
 package com.example.Hospital.service;
 
-import com.example.Hospital.dto.DepartmentDTO;
+import com.example.Hospital.dto.request.DepartmentRequest;
 
 import java.util.List;
 
 public interface DepartmentService {
-    List<DepartmentDTO> getAllDepartments();
-    DepartmentDTO createDepartment(DepartmentDTO departmentDTO);
+    List<DepartmentRequest> getAllDepartments();
+    DepartmentRequest createDepartment(DepartmentRequest departmentRequest);
 
-    DepartmentDTO getDepartmentById(int id);
+    DepartmentRequest getDepartmentById(int id);
 
-    DepartmentDTO updateDepartment(int id, DepartmentDTO departmentDTO);
+    DepartmentRequest updateDepartment(int id, DepartmentRequest departmentRequest);
 
     boolean deleteDepartment(int id);
 }

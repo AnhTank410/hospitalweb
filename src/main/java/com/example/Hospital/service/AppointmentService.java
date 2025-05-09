@@ -1,17 +1,17 @@
 package com.example.Hospital.service;
 
-import com.example.Hospital.dto.AppointmentDTO;
+import com.example.Hospital.dto.request.AppointmentRequest;
 import java.util.List;
 
 public interface AppointmentService {
-    List<AppointmentDTO> getAllAppointments();
-    AppointmentDTO getAppointmentById(int id);
-    List<AppointmentDTO> getAppointmentsByDoctorId(int doctorId);
-    List<AppointmentDTO> getAppointmentsByPatientId(int patientId);
+    List<AppointmentRequest> getAllAppointments();
+    AppointmentRequest getAppointmentById(int id);
+    List<AppointmentRequest> getAppointmentsByDoctorId(int doctorId);
+    List<AppointmentRequest> getAppointmentsByPatientId(int patientId);
 
-    AppointmentDTO createAppointment(AppointmentDTO appointmentDTO);
+    AppointmentRequest createAppointment(AppointmentRequest appointmentRequest);
 
-    AppointmentDTO updateAppointment(int id, AppointmentDTO appointmentDTO);
+    AppointmentRequest updateAppointment(int id, AppointmentRequest appointmentRequest);
 
     boolean deleteAppointment(int id);
 }

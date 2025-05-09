@@ -1,8 +1,8 @@
-package com.example.Hospital.dto;
+package com.example.Hospital.dto.request;
 
 import com.example.Hospital.model.Role;
 
-public class DoctorDTO {
+public class DoctorRequest {
     private int DoctorID;
     private String usename;
     private String password;

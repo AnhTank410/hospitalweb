@@ -1,6 +1,6 @@
 package com.example.Hospital.service.impl;
 
-import com.example.Hospital.dto.DoctorDTO;
+import com.example.Hospital.dto.request.DoctorRequest;
 import com.example.Hospital.model.Doctor;
 import com.example.Hospital.model.Role;
 import com.example.Hospital.repository.DepartmentRepository;
@@ -22,31 +22,35 @@ public class DoctorServiceImpl implements DoctorSevice {
     private DepartmentRepository departmentRepository;
 
     @Override
-    public DoctorDTO getDoctorbyId(int id) {
+    public DoctorRequest getDoctorbyId(int id) {
         Optional<Doctor> optionalDoctor= doctorRepository.findById(id);
         if(optionalDoctor.isPresent()){
             return convertToDTO(optionalDoctor.get());
         }
         return null;
     }
-
     @Override
-    public List<DoctorDTO> getDoctorbyDepartment(int departmentId) {
+    public List<DoctorRequest> getAllDoctors() {
+        List<Doctor> doctors = doctorRepository.findAll();
+        return doctors.stream().map(doctor -> convertToDTO(doctor)).collect(Collectors.toList());
+    }
+    @Override
+    public List<DoctorRequest> getDoctorbyDepartment(int departmentId) {
         List<Doctor> doctors=doctorRepository.findAllByDepartment_DepartmentID(departmentId);
         return doctors.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
-    public DoctorDTO createDoctor(DoctorDTO doctorDTO) {
+    public DoctorRequest createDoctor(DoctorRequest doctorRequest) {
         Doctor doctor=new Doctor();
-        doctor.setUsename(doctorDTO.getUsename());
-        doctor.setPassword(doctorDTO.getPassword());
-        doctor.setId(doctorDTO.getDoctorID());
-        doctor.setName(doctorDTO.getName());
-        doctor.setDepartment(departmentRepository.findByName(doctorDTO.getDepartment()));
-        doctor.setGender(doctorDTO.getGender());
-        doctor.setSpecialization(doctorDTO.getSpecialization());
-        doctor.setPhone(doctorDTO.getPhone());
+        doctor.setUsename(doctorRequest.getUsename());
+        doctor.setPassword(doctorRequest.getPassword());
+        doctor.setId(doctorRequest.getDoctorID());
+        doctor.setName(doctorRequest.getName());
+        doctor.setDepartment(departmentRepository.findByName(doctorRequest.getDepartment()));
+        doctor.setGender(doctorRequest.getGender());
+        doctor.setSpecialization(doctorRequest.getSpecialization());
+        doctor.setPhone(doctorRequest.getPhone());
         doctor.setRole(Role.DOCTOR);
 
         Doctor saveDoctor=doctorRepository.save(doctor);
@@ -54,16 +58,16 @@ public class DoctorServiceImpl implements DoctorSevice {
     }
 
     @Override
-    public DoctorDTO updateDoctor(int id, DoctorDTO doctorDTO) {
+    public DoctorRequest updateDoctor(int id, DoctorRequest doctorRequest) {
         Optional<Doctor> optionalDoctor=doctorRepository.findById(id);
         if(optionalDoctor.isPresent()){
             Doctor doctor=optionalDoctor.get();
-            doctor.setId(doctorDTO.getDoctorID());
-            doctor.setName(doctorDTO.getName());
-            doctor.setDepartment(departmentRepository.findByName(doctorDTO.getDepartment()));
-            doctor.setGender(doctorDTO.getGender());
-            doctor.setSpecialization(doctorDTO.getSpecialization());
-            doctor.setPhone(doctorDTO.getPhone());
+            doctor.setId(doctorRequest.getDoctorID());
+            doctor.setName(doctorRequest.getName());
+            doctor.setDepartment(departmentRepository.findByName(doctorRequest.getDepartment()));
+            doctor.setGender(doctorRequest.getGender());
+            doctor.setSpecialization(doctorRequest.getSpecialization());
+            doctor.setPhone(doctorRequest.getPhone());
 
             return convertToDTO(doctor);
         }
@@ -79,18 +83,18 @@ public class DoctorServiceImpl implements DoctorSevice {
         return false;
     }
 
-    private DoctorDTO convertToDTO(Doctor doctor){
-        DoctorDTO doctorDTO=new DoctorDTO();
-        doctorDTO.setUsename(doctor.getUsename());
-        doctorDTO.setPassword(doctor.getPassword());
-        doctorDTO.setDoctorID(doctor.getId());
-        doctorDTO.setName(doctor.getName());
-        doctorDTO.setGender(doctor.getGender());
-        doctorDTO.setSpecialization(doctor.getSpecialization());
-        doctorDTO.setPhone(doctor.getPhone());
-        doctorDTO.setDepartment(doctor.getDepartment()!=null ? doctor.getDepartment().getName(): null);
-        doctorDTO.setRole(doctor.getRole());
-        return doctorDTO;
+    private DoctorRequest convertToDTO(Doctor doctor){
+        DoctorRequest doctorRequest =new DoctorRequest();
+        doctorRequest.setUsename(doctor.getUsename());
+        doctorRequest.setPassword(doctor.getPassword());
+        doctorRequest.setDoctorID(doctor.getId());
+        doctorRequest.setName(doctor.getName());
+        doctorRequest.setGender(doctor.getGender());
+        doctorRequest.setSpecialization(doctor.getSpecialization());
+        doctorRequest.setPhone(doctor.getPhone());
+        doctorRequest.setDepartment(doctor.getDepartment()!=null ? doctor.getDepartment().getName(): null);
+        doctorRequest.setRole(doctor.getRole());
+        return doctorRequest;
 
     }
 }

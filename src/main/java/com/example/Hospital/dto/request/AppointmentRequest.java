@@ -1,13 +1,11 @@
-package com.example.Hospital.dto;
+package com.example.Hospital.dto.request;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Date;
 
 @Data
-public class AppointmentDTO {
+public class AppointmentRequest {
     private int appointmentID;
     private Date date;
     private String reason;

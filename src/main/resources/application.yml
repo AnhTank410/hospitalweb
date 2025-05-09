@@ -12,3 +12,6 @@ spring:
     properties:
       hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
       hibernate.jdbc.time_zone: UTC
+
+jwt:
+  signerKey: Qn+VU6c9vxUrQaeumHY+QImH6pPyTM+wNxmYno4Rqd7jqFa086SwLOpu9LbVgPBO

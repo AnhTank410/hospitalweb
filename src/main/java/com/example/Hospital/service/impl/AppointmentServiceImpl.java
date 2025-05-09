@@ -1,6 +1,6 @@
 package com.example.Hospital.service.impl;
 
-import com.example.Hospital.dto.AppointmentDTO;
+import com.example.Hospital.dto.request.AppointmentRequest;
 import com.example.Hospital.model.Appointment;
 import com.example.Hospital.model.Doctor;
 import com.example.Hospital.model.Patient;
@@ -27,39 +27,39 @@ public class AppointmentServiceImpl implements AppointmentService {
     private PatientRepository patientRepository; // Thêm để lấy Patient
 
     @Override
-    public List<AppointmentDTO> getAllAppointments() {
+    public List<AppointmentRequest> getAllAppointments() {
         List<Appointment> appointments = appointmentRepository.findAll();
         return appointments.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
-    public AppointmentDTO getAppointmentById(int id) {
+    public AppointmentRequest getAppointmentById(int id) {
         Appointment appointment = appointmentRepository.findById(id).orElse(null);
         return appointment != null ? convertToDTO(appointment) : null;
     }
 
     @Override
-    public List<AppointmentDTO> getAppointmentsByDoctorId(int doctorId) {
+    public List<AppointmentRequest> getAppointmentsByDoctorId(int doctorId) {
         List<Appointment> appointments = appointmentRepository.findByDoctor_Id(doctorId);
         return appointments.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
-    public List<AppointmentDTO> getAppointmentsByPatientId(int patientId) {
+    public List<AppointmentRequest> getAppointmentsByPatientId(int patientId) {
         List<Appointment> appointments = appointmentRepository.findByPatient_Id(patientId);
         return appointments.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
-    public AppointmentDTO createAppointment(AppointmentDTO appointmentDTO) {
+    public AppointmentRequest createAppointment(AppointmentRequest appointmentRequest) {
         Appointment appointment = new Appointment();
-        appointment.setDate(appointmentDTO.getDate());
-        appointment.setReason(appointmentDTO.getReason());
-        appointment.setStatus(appointmentDTO.getStatus());
+        appointment.setDate(appointmentRequest.getDate());
+        appointment.setReason(appointmentRequest.getReason());
+        appointment.setStatus(appointmentRequest.getStatus());
 
         // Gán Doctor và Patient từ ID/name
-        Optional<Doctor> doctor = doctorRepository.findByName(appointmentDTO.getDoctor());
-        Optional<Patient> patient = patientRepository.findByName(appointmentDTO.getPatient());
+        Optional<Doctor> doctor = doctorRepository.findByName(appointmentRequest.getDoctor());
+        Optional<Patient> patient = patientRepository.findByName(appointmentRequest.getPatient());
 
         doctor.ifPresent(appointment::setDoctor);
         patient.ifPresent(appointment::setPatient);
@@ -71,16 +71,16 @@ public class AppointmentServiceImpl implements AppointmentService {
     // ====== CRUD CẬP NHẬT ======
 
     @Override
-    public AppointmentDTO updateAppointment(int id, AppointmentDTO appointmentDTO) {
+    public AppointmentRequest updateAppointment(int id, AppointmentRequest appointmentRequest) {
         Optional<Appointment> optionalAppointment = appointmentRepository.findById(id);
         if (optionalAppointment.isPresent()) {
             Appointment appointment = optionalAppointment.get();
-            appointment.setDate(appointmentDTO.getDate());
-            appointment.setReason(appointmentDTO.getReason());
-            appointment.setStatus(appointmentDTO.getStatus());
+            appointment.setDate(appointmentRequest.getDate());
+            appointment.setReason(appointmentRequest.getReason());
+            appointment.setStatus(appointmentRequest.getStatus());
 
-            Optional<Doctor> doctor = doctorRepository.findByName(appointmentDTO.getDoctor());
-            Optional<Patient> patient = patientRepository.findByName(appointmentDTO.getPatient());
+            Optional<Doctor> doctor = doctorRepository.findByName(appointmentRequest.getDoctor());
+            Optional<Patient> patient = patientRepository.findByName(appointmentRequest.getPatient());
 
             doctor.ifPresent(appointment::setDoctor);
             patient.ifPresent(appointment::setPatient);
@@ -104,8 +104,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     // Chuyển Appointment -> AppointmentDTO
 
-    private AppointmentDTO convertToDTO(Appointment appointment) {
-        AppointmentDTO dto = new AppointmentDTO();
+    private AppointmentRequest convertToDTO(Appointment appointment) {
+        AppointmentRequest dto = new AppointmentRequest();
         dto.setAppointmentID(appointment.getAppointmentID());
         dto.setDate(appointment.getDate());
         dto.setReason(appointment.getReason());
